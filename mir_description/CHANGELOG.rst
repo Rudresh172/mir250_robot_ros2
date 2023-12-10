@@ -2,49 +2,6 @@
 Changelog for package mir_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.1.7 (2023-01-20)
-------------------
-* Don't set cmake_policy CMP0048
-* Contributors: Martin Günther
-
-1.1.6 (2022-06-02)
-------------------
-* URDF: Downsize inertia box, move to lower back
-* URDF: Pull out inertia properties
-* URDF: Update masses according to data sheet
-* URDF: Add mir_250
-* Add arg mir_type to launch files and urdfs
-* Add mir_250 meshes
-* URDF: Make wheels black
-* Add mir_100_v1.urdf.xacro for backwards compatibility
-* Rename mir_100 -> mir
-* Refactor URDF to prepare for MiR250 support
-* Gazebo: Don't manually specify wheel params for diffdrive controller
-* Simplify mir_100 collision mesh further
-* Contributors: Martin Günther
-
-1.1.5 (2022-02-11)
-------------------
-* Remove xacro comment to work around xacro bug
-  Since xacro 1.14.11, xacro now also evaluates expressions in comments
-  and throws an error if the substition argument is undefined. In xacro
-  1.14.12, this error was changed to a warning.
-  This commit removes that warning.
-  Workaround for https://github.com/ros/xacro/issues/309 .
-* xacro: drop --inorder option
-  In-order processing became default in ROS Melodic.
-* Add gazebo_plugins to dependency list (`#103 <https://github.com/DFKI-NI/mir_robot/issues/103>`_)
-  This is needed for the ground truth pose via p3d plugin.
-* Contributors: Martin Günther, moooeeeep
-
-1.1.4 (2021-12-10)
-------------------
-* Replace gazebo_plugins IMU with hector_gazebo_plugins
-* Use cylinders instead of STLs for wheel collision geometries
-  Fixes `#99 <https://github.com/DFKI-NI/mir_robot/issues/99>`_.
-* mir_debug_urdf.launch: Fix GUI display
-* Contributors: Martin Günther
-
 1.1.3 (2021-06-11)
 ------------------
 * Merge branch 'melodic-2.8' into noetic
@@ -60,7 +17,7 @@ Changelog for package mir_description
 1.1.1 (2021-02-11)
 ------------------
 * Add prepend_prefix_to_laser_frame to URDF and launch files
-  Fixes `#65 <https://github.com/DFKI-NI/mir_robot/issues/65>`_.
+  Fixes `#65 <https://github.com/dfki-ric/mir_robot/issues/65>`_.
 * Add tf_prefix to URDF and launch files
 * Fix typo in robot_namespace
 * Add missing 'xacro:' xml namespace prefixes
@@ -83,10 +40,10 @@ Changelog for package mir_description
 ------------------
 * Switch from Gazebo GPU laser to normal laser plugin
   The GPU laser plugin has caused multiple people problems before, because
-  it is not compatible with all GPUS: `#1 <https://github.com/DFKI-NI/mir_robot/issues/1>`_
-  `#32 <https://github.com/DFKI-NI/mir_robot/issues/32>`_
-  `#46 <https://github.com/DFKI-NI/mir_robot/issues/46>`_
-  `#52 <https://github.com/DFKI-NI/mir_robot/issues/52>`_
+  it is not compatible with all GPUS: `#1 <https://github.com/dfki-ric/mir_robot/issues/1>`_
+  `#32 <https://github.com/dfki-ric/mir_robot/issues/32>`_
+  `#46 <https://github.com/dfki-ric/mir_robot/issues/46>`_
+  `#52 <https://github.com/dfki-ric/mir_robot/issues/52>`_
   The normal laser plugin directly uses the physics engine, so it doesn't
   depend on any specific GPU. Also, it doesn't slow down the simulation
   noticeably (maybe 1-2%).
@@ -97,12 +54,12 @@ Changelog for package mir_description
 * Add legacyModeNS param to gazebo_ros_control plugin
   This enables the new behavior of the plugin (pid_gains parameter are now
   in the proper namespace).
-* re-added gazebo friction parameters for the wheels (`#19 <https://github.com/DFKI-NI/mir_robot/issues/19>`_)
+* re-added gazebo friction parameters for the wheels (`#19 <https://github.com/dfki-ric/mir_robot/issues/19>`_)
 * Contributors: Martin Günther, niniemann
 
 1.0.3 (2019-03-04)
 ------------------
-* Merge pull request `#16 <https://github.com/DFKI-NI/mir_robot/issues/16>`_ from niniemann/add-prefix-argument-to-configs
+* Merge pull request `#16 <https://github.com/dfki-ric/mir_robot/issues/16>`_ from niniemann/add-prefix-argument-to-configs
   Add prefix argument to configs
 * removed prefix from plugin frameName in sick urdf
   The gazebo plugins automatically use tf_prefix, even if none is set
