@@ -4,10 +4,16 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.conditions import IfCondition
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction, \
-                           SetLaunchConfiguration
+                           SetLaunchConfiguration, ExecuteProcess
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, Command, PathJoinSubstitution, FindExecutable
 from launch_ros.actions import Node
+from launch.actions import RegisterEventHandler
+from launch.event_handlers import OnProcessStart
+from launch.event_handlers import OnProcessExit
+from launch_ros.parameter_descriptions import ParameterValue
+from launch_ros.substitutions import FindPackageShare
+
 
 
 def generate_launch_description():
@@ -86,11 +92,42 @@ def generate_launch_description():
         }.items()
     )
 
-    launch_mir_description = IncludeLaunchDescription(
+    '''launch_mir_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(mir_description_dir, 'launch', 'mir_launch.py')
         )
+    )'''
+
+    # robot_description = ParameterValue(
+    #     Command(
+    #     [
+    #         "xacro ", 
+    #         os.path.join(mir_description_dir, "urdf", "mir.urdf.xacro")
+    #     ]
+    #     ),
+    #     value_type=str
+    # )
+
+    robot_description = Command(
+        [
+            PathJoinSubstitution([FindExecutable(name="xacro")]),
+            " ",
+            PathJoinSubstitution(
+                [FindPackageShare("mir_description"), "urdf", "mir.urdf.xacro"]
+            ),
+        ]
     )
+
+    robot_description2 = {"robot_description": robot_description}
+    
+    launch_mir_description = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='both',
+        parameters=[robot_description2],
+        namespace=LaunchConfiguration('namespace'),
+      )
 
     launch_mir_gazebo_common = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -107,7 +144,24 @@ def generate_launch_description():
         except KeyError:
             pass
         return [SetLaunchConfiguration('robot_name', robot_name)]
+    
+    # robot_controllers = PathJoinSubstitution(
+    #     [
+    #         FindPackageShare("mir_description"),
+    #         "config",
+    #         "diffdrive_controller.yaml",
+    #     ]
+    # )
 
+    
+    # control_node = Node(
+    #     package="controller_manager",
+    #     executable="ros2_control_node",
+    #     parameters=[robot_description2, robot_controllers
+    #     ],
+    #     output="both",
+    # )
+    
     spawn_robot = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
@@ -116,6 +170,50 @@ def generate_launch_description():
                    '-b'],  # bond node to gazebo model,
         namespace=LaunchConfiguration('namespace'),
         output='screen')
+    
+    # diff_drive_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["diff_cont",
+    #                "--controller-manager",
+    #                "/controller_manager"],
+    # )
+
+    joint_broad_spawner = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'joint_broadcaster'],
+        output='screen'
+    )
+    
+    diff_drive_spawner= ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'diff_cont'],
+        output='screen'
+    )
+
+    delayed_diff_drive_spawner = RegisterEventHandler(
+         event_handler=OnProcessExit(
+             target_action=joint_broad_spawner,
+             on_exit=[diff_drive_spawner],
+         )
+    )
+
+    # joint_broad_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["joint_broadcaster",
+    #                "--controller-manager",
+    #                "/controller_manager"],
+    # )
+
+    
+
+    delayed_joint_broad_spawner = RegisterEventHandler(
+         event_handler=OnProcessExit(
+             target_action=spawn_robot,
+             on_exit=[joint_broad_spawner],
+         )
+    )
 
     launch_rviz = Node(
         condition=IfCondition(LaunchConfiguration('rviz_enabled')),
@@ -147,10 +245,18 @@ def generate_launch_description():
     ld.add_action(declare_rviz_config_arg)
     ld.add_action(declare_gui_arg)
 
+    
+    ld.add_action(joint_broad_spawner)
+    ld.add_action(diff_drive_spawner)
     ld.add_action(launch_gazebo_world)
     ld.add_action(launch_mir_description)
-    ld.add_action(launch_mir_gazebo_common)
     ld.add_action(spawn_robot)
+    ld.add_action(launch_mir_gazebo_common)
+    #ld.add_action(control_node)
+    #ld.add_action(control_node)
+    
+    
+    
     ld.add_action(launch_rviz)
     ld.add_action(launch_teleop)
 
