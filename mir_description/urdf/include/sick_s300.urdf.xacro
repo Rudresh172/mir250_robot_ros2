@@ -33,15 +33,15 @@
       <!-- <material value="Gazebo/Yellow" /> -->
       <material value="Gazebo/FlatBlack" />
       <sensor type="ray" name="${prefix}${link}">
-        <visualize>false</visualize>
+        <visualize>true</visualize>
         <update_rate>12.5</update_rate>
         <ray>
           <scan>
             <horizontal>
               <samples>541</samples>
               <resolution>1</resolution>  <!-- has to be 1; actual resolution will be computed from number of samples + min_angle/max_angle -->
-              <min_angle>-2.35619449615</min_angle>
-              <max_angle>2.35619449615</max_angle>
+              <min_angle>-2.09438</min_angle>
+              <max_angle>2.09438</max_angle>
             </horizontal>
           </scan>
           <range>

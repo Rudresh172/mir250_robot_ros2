@@ -126,6 +126,8 @@ def generate_launch_description():
         name='robot_state_publisher',
         output='both',
         parameters=[robot_description2],
+        # remappings=[
+        #     ("/diff_cont/cmd_vel_unstamped", "/cmd_vel"),],
         namespace=LaunchConfiguration('namespace'),
       )
 
@@ -230,6 +232,7 @@ def generate_launch_description():
         executable='teleop_twist_keyboard',
         namespace=LaunchConfiguration('namespace'),
         output='screen',
+        arguments=['-r', '/cmd_vel:=/diff_cont/cmd_vel_unstamped'],
         prefix='xterm -e')
 
     ld.add_action(OpaqueFunction(function=process_namespace))
