@@ -19,6 +19,7 @@ cd ~/ros2_ws/
 git clone https://git.rwth-aachen.de/rudresh.lonkar/mir_250_ros2/ src/mir_robot
 
 # use vcs to fetch linked repos
+# $ sudo apt install python3-vcstool
 vcs import < src/mir_robot/ros2.repos src --recursive
 
 # use rosdep to install all dependencies (including ROS itself)
