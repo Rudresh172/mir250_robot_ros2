@@ -172,7 +172,7 @@
     <link name="${prefix}surface"/>
 
 
-    <joint name="${prefix}power_unit_joint" type="fixed">
+    <!-- <joint name="${prefix}power_unit_joint" type="fixed">
       <parent link="${prefix}base_link" />
       <child link="${prefix}power_unit" />
       <origin xyz="0 0 0.3" rpy="0 0 0" />
@@ -184,7 +184,6 @@
         <geometry>
           <box size="0.73 0.56 0.4"/>
         </geometry>
-        <!-- Add material and other visual properties if needed -->
         <xacro:insert_block name="material_light_grey" />
       </visual>
       <collision>
@@ -192,9 +191,8 @@
         <geometry>
           <box size="0.73 0.56 0.4"/>
        </geometry>
-        <!-- Add other collision properties if needed -->
       </collision>
-    </link>
+    </link> -->
 
     <!-- <xacro:arg name="name" default="ur"/> -->
     <!-- <xacro:arg name="ur_type" default="ur5e"/> -->
