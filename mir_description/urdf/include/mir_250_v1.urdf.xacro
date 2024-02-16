@@ -3,13 +3,9 @@
 
   <xacro:include filename="$(find mir_description)/urdf/include/common_properties.urdf.xacro" />
   <xacro:include filename="$(find mir_description)/urdf/include/imu.gazebo.urdf.xacro" />
-  <xacro:include filename="$(find mir_description)/urdf/include/mir_100.gazebo.xacro" />
-  <xacro:include filename="$(find mir_description)/urdf/include/mir_100.transmission.xacro" />
   <xacro:include filename="$(find mir_description)/urdf/include/sick_s300.urdf.xacro" />
   <xacro:include filename="$(find mir_description)/urdf/include/wheel.urdf.xacro" />
   <xacro:include filename="$(find mir_description)/urdf/include/caster.urdf.xacro" />
-  <!-- <xacro:include filename="$(find mir_description)/urdf/include/common.gazebo.xacro" /> -->
-  <!-- <xacro:include filename="$(find mir_description)/urdf/include/ros2_control.xacro" /> -->
   <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro"/>
 
   <xacro:property name="deg_to_rad" value="0.017453293" />
@@ -24,38 +20,38 @@
   <xacro:property name="mir_base_inertial_y_length" value="0.30" />
   <xacro:property name="mir_base_inertial_z_length" value="0.20" />
 
-  <xacro:property name="mir_100_act_wheel_radius" value="0.100" />
-  <xacro:property name="mir_100_act_wheel_width" value="0.038" />
-  <xacro:property name="mir_100_act_wheel_mass" value="1.0" />
+  <xacro:property name="mir_250_act_wheel_radius" value="0.100" />
+  <xacro:property name="mir_250_act_wheel_width" value="0.038" />
+  <xacro:property name="mir_250_act_wheel_mass" value="1.0" />
   <!--xacro:property name="mir_100_act_wheel_dx" value="0.037646" /-->
-  <xacro:property name="mir_100_act_wheel_dx" value="-0.004485" />
+  <xacro:property name="mir_250_act_wheel_dx" value="-0.004485" />
   <!--xacro:property name="mir_100_act_wheel_dy" value="0.222604" /-->
-  <xacro:property name="mir_100_act_wheel_dy" value="0.2015" />
+  <xacro:property name="mir_250_act_wheel_dy" value="0.2015" />
 
-  <xacro:property name="mir_100_caster_wheel_radius" value="0.0625" />
-  <xacro:property name="mir_100_caster_wheel_width" value="0.032" />
-  <xacro:property name="mir_100_caster_wheel_mass" value="1.0" />
-  <xacro:property name="mir_100_caster_wheel_dx" value="-0.0382" />
-  <xacro:property name="mir_100_caster_wheel_dy" value="0" />
-  <xacro:property name="mir_100_caster_wheel_dz" value="-0.094" />
+  <xacro:property name="mir_250_caster_wheel_radius" value="0.0625" />
+  <xacro:property name="mir_250_caster_wheel_width" value="0.032" />
+  <xacro:property name="mir_250_caster_wheel_mass" value="1.0" />
+  <xacro:property name="mir_250_caster_wheel_dx" value="-0.0382" />
+  <xacro:property name="mir_250_caster_wheel_dy" value="0" />
+  <xacro:property name="mir_250_caster_wheel_dz" value="-0.094" />
   <!--xacro:property name="mir_100_front_caster_wheel_base_dx" value="0.341346" /-->
-  <xacro:property name="mir_100_front_caster_wheel_base_dx" value="0.3037" />
+  <xacro:property name="mir_250_front_caster_wheel_base_dx" value="0.3037" />
   <!--xacro:property name="mir_100_back_caster_wheel_base_dx" value="-0.270154" /-->
-  <xacro:property name="mir_100_back_caster_wheel_base_dx" value="-0.296" />
+  <xacro:property name="mir_250_back_caster_wheel_base_dx" value="-0.296" />
   <!--xacro:property name="mir_100_caster_wheel_base_dy" value="0.203" /-->
-  <xacro:property name="mir_100_caster_wheel_base_dy" value="0.188" />
-  <xacro:property name="mir_100_caster_wheel_base_dz" value="${mir_100_caster_wheel_radius - mir_100_caster_wheel_dz}" />
+  <xacro:property name="mir_250_caster_wheel_base_dy" value="0.188" />
+  <xacro:property name="mir_250_caster_wheel_base_dz" value="${mir_250_caster_wheel_radius - mir_250_caster_wheel_dz}" />
 
   <!-- MiR 100 complete mass 78.2kg (8.2kg battery) -->
   <!-- - 2x2kg sick laser = 4kg-->
   <!-- - 4x caster wheels + rotation link: 4x 1.31 kg -->
   <!-- - 2x act wheels: 2kg -->
   <!--xacro:property name="mir_100_base_mass" value="66.96" /-->
-  <xacro:property name="mir_100_base_mass" value="97.0" />
+  <xacro:property name="mir_250_base_mass" value="97.0" />
 
   <xacro:property name="imu_stdev" value="0.00017" />
 
-  <xacro:macro name="mir_100" params="prefix ns">
+  <xacro:macro name="mir_250" params="prefix ns">
     <link name="${prefix}base_footprint" />
 
     <joint name="${prefix}base_joint" type="fixed">
@@ -65,11 +61,11 @@
     </joint>
 
     <link name="${prefix}base_link">
-      <xacro:box_inertial mass="${mir_100_base_mass}" x="${mir_base_inertial_x_length}" y="${mir_base_inertial_y_length}" z="${mir_base_inertial_z_length}">
-        <origin xyz="${mir_base_inertial_x + mir_100_act_wheel_dx} ${mir_base_inertial_y} ${mir_base_inertial_z}" rpy="0 0 0" />
+      <xacro:box_inertial mass="${mir_250_base_mass}" x="${mir_base_inertial_x_length}" y="${mir_base_inertial_y_length}" z="${mir_base_inertial_z_length}">
+        <origin xyz="${mir_base_inertial_x + mir_250_act_wheel_dx} ${mir_base_inertial_y} ${mir_base_inertial_z}" rpy="0 0 0" />
       </xacro:box_inertial>
       <visual>
-        <origin xyz="${mir_100_act_wheel_dx} 0 0" rpy="0 0 0" />
+        <origin xyz="${mir_250_act_wheel_dx} 0 0" rpy="0 0 0" />
         <geometry>
           <!--mesh filename="package://mir_description/meshes/visual/mir_100_base.stl" /-->
           <mesh filename="package://mir_description/meshes/visual/mir_250_base.stl" />
@@ -78,7 +74,7 @@
         <xacro:insert_block name="material_light_grey" />
       </visual>
       <collision>
-        <origin xyz="${mir_100_act_wheel_dx} 0 0" rpy="0 0 0" />
+        <origin xyz="${mir_250_act_wheel_dx} 0 0" rpy="0 0 0" />
         <geometry>
           <!--mesh filename="package://mir_description/meshes/collision/mir_100_base.stl" /-->
           <mesh filename="package://mir_description/meshes/collision/mir_250_base.stl" />
@@ -161,13 +157,13 @@
     <!-- wheels -->
     <xacro:actuated_wheel prefix="${prefix}" locationprefix="left" locationright="-1"/>
     <xacro:actuated_wheel prefix="${prefix}" locationprefix="right" locationright="1"/>
-    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="fl" locationright="-1" wheel_base_dx="${mir_100_front_caster_wheel_base_dx}"/>
-    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="fr" locationright="1" wheel_base_dx="${mir_100_front_caster_wheel_base_dx}"/>
-    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="bl" locationright="-1" wheel_base_dx="${mir_100_back_caster_wheel_base_dx}"/>
-    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="br" locationright="1" wheel_base_dx="${mir_100_back_caster_wheel_base_dx}"/>
+    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="fl" locationright="-1" wheel_base_dx="${mir_250_front_caster_wheel_base_dx}"/>
+    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="fr" locationright="1" wheel_base_dx="${mir_250_front_caster_wheel_base_dx}"/>
+    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="bl" locationright="-1" wheel_base_dx="${mir_250_back_caster_wheel_base_dx}"/>
+    <xacro:caster_wheel prefix="${prefix}" ns="${ns}" locationprefix="br" locationright="1" wheel_base_dx="${mir_250_back_caster_wheel_base_dx}"/>
 
     <joint name="${prefix}base_link_surface_joint" type="fixed">
-      <origin xyz="${mir_100_act_wheel_dx} 0 0.352" rpy="0 0 0" />
+      <origin xyz="${mir_250_act_wheel_dx} 0 0.352" rpy="0 0 0" />
       <parent link="${prefix}base_link" />
       <child link="${prefix}surface" />
       <axis xyz="0 0 1" />
@@ -175,7 +171,6 @@
 
     <link name="${prefix}surface"/>
 
-    <xacro:mir_100_wheel_transmissions prefix="${prefix}"/>
 
     <joint name="${prefix}power_unit_joint" type="fixed">
       <parent link="${prefix}base_link" />
@@ -289,9 +284,5 @@
      <origin xyz="0 0 0.7" rpy="0 0 0" />          
     </xacro:ur_robot> -->
 
-
-
-
-    <xacro:p3d_base_controller prefix="${prefix}"/>
   </xacro:macro>
 </robot>

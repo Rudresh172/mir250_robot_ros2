@@ -4,11 +4,11 @@
 
   <xacro:macro name="actuated_wheel" params="prefix  locationprefix locationright">
     <joint name="${prefix}${locationprefix}_wheel_joint" type="continuous">
-      <origin xyz="0.0 ${-mir_100_act_wheel_dy * locationright} ${mir_100_act_wheel_radius}" rpy="0 0 0" />
+      <origin xyz="0.0 ${-mir_250_act_wheel_dy * locationright} ${mir_250_act_wheel_radius}" rpy="0 0 0" />
       <parent link="${prefix}base_link" />
       <child link="${prefix}${locationprefix}_wheel_link" />
       <axis xyz="0 1 0" />
-      <limit effort="100" velocity="20.0" />
+      <limit effort="250" velocity="20.0" />
       <!-- <dynamics damping="0.0" friction="0.0"/> -->
       <!-- <gazebo reference="${prefix}${locationprefix}_wheel_joint">
         <implicitSpringDamper>1</implicitSpringDamper>
@@ -16,7 +16,7 @@
     </joint>
 
     <link name="${prefix}${locationprefix}_wheel_link">
-      <xacro:cylinder_inertial mass="${mir_100_act_wheel_mass}" radius="${mir_100_act_wheel_radius}" length="${mir_100_act_wheel_width}">
+      <xacro:cylinder_inertial mass="${mir_250_act_wheel_mass}" radius="${mir_250_act_wheel_radius}" length="${mir_250_act_wheel_width}">
         <origin xyz="0 0 0" rpy="${0.5 * pi} 0 0" />
       </xacro:cylinder_inertial>
       <visual>
@@ -24,14 +24,14 @@
         <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         <geometry>
           <!--mesh filename="package://mir_description/meshes/visual/wheel.stl" /-->
-          <cylinder radius="${mir_100_act_wheel_radius}" length="${mir_100_act_wheel_width}" />
+          <cylinder radius="${mir_250_act_wheel_radius}" length="${mir_250_act_wheel_width}" />
         </geometry>
         <xacro:insert_block name="material_dark_grey" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         <geometry>
-          <cylinder radius="${mir_100_act_wheel_radius}" length="${mir_100_act_wheel_width}" />
+          <cylinder radius="${mir_250_act_wheel_radius}" length="${mir_250_act_wheel_width}" />
         </geometry>
       </collision>
     </link>
@@ -60,7 +60,7 @@
               <torsional>
                 <coefficient>300</coefficient>
                 <use_patch_radius>false</use_patch_radius>
-                <surface_radius>${mir_100_act_wheel_radius}</surface_radius>
+                <surface_radius>${mir_250_act_wheel_radius}</surface_radius>
               </torsional>
             </friction>
             <contact>

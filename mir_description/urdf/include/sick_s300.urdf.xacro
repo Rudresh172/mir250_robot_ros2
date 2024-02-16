@@ -33,7 +33,7 @@
       <!-- <material value="Gazebo/Yellow" /> -->
       <material value="Gazebo/FlatBlack" />
       <sensor type="ray" name="${prefix}${link}">
-        <visualize>true</visualize>
+        <visualize>false</visualize>
         <update_rate>12.5</update_rate>
         <ray>
           <scan>
