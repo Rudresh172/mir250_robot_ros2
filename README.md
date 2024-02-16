@@ -4,9 +4,7 @@ This is a ROS2 package for MiR 250 with ros2_control, Gazebo and Ignition Gazebo
 # Installation
 
 ## Preliminaries
-
 ## ROS2
-
 If you haven't already installed [ROS2](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) on your PC, you need to add the ROS2 apt repository.
 
 ## Source install
