@@ -48,3 +48,16 @@ ros2 launch mir_navigation mapping.py use_sim_time:=true slam_params_file:=$(ros
 ### navigation (optional)
 ros2 launch mir_navigation navigation.py use_sim_time:=true cmd_vel_w_prefix:=/diff_cont/cmd_vel_unstamped
 ```
+
+# Gazebo demo (Navigation with existing map)
+```
+### gazebo
+ros2 launch mir_gazebo mir_gazebo_launch.py world:=maze rviz_config_file:=$(ros2 pkg prefix mir_navigation)/share/mir_navigation/rviz/mir_nav.rviz
+
+
+### localization (existing map)
+ros2 launch mir_navigation amcl.py use_sim_time:=true map:=$(ros2 pkg prefix mir_navigation)/share/mir_navigation/maps/maze.yaml
+
+### navigation
+ros2 launch mir_navigation navigation.py use_sim_time:=true
+```
