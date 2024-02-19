@@ -23,7 +23,7 @@
         <!--origin xyz="0 0 0" rpy="0 0 0" /-->
         <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         <geometry>
-          <!--mesh filename="package://mir_description/meshes/visual/wheel.stl" /-->
+          <!--mesh filename="file://mir_description/meshes/visual/wheel.stl" /-->
           <cylinder radius="${mir_250_act_wheel_radius}" length="${mir_250_act_wheel_width}" />
         </geometry>
         <xacro:insert_block name="material_dark_grey" />
