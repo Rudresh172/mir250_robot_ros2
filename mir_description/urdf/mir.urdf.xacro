@@ -64,19 +64,19 @@
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
-    <joint name="fl__caster_wheel_joint">
+    <joint name="fl_caster_wheel_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
-    <joint name="fr__caster_wheel_joint">
+    <joint name="fr_caster_wheel_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
-    <joint name="bl__caster_wheel_joint">
+    <joint name="bl_caster_wheel_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
-    <joint name="br__caster_wheel_joint">
+    <joint name="br_caster_wheel_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
