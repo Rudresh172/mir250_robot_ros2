@@ -7,3 +7,7 @@ repositories:
     type: git
     url: https://github.com/joshnewans/twist_stamper.git
     version: 32e0eed68c76d9d3fa64b54e8313aa9a6d6bd99d
+  ur_description:
+    type: git
+    url: https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git
+    version: humble
