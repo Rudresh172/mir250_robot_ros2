@@ -25,7 +25,7 @@ find_package(urdf REQUIRED)
 find_package(xacro REQUIRED)
 
 install(
-  DIRECTORY urdf rviz meshes config launch env-hooks
+  DIRECTORY urdf rviz meshes config launch
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -33,8 +33,6 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
-
-ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.sh.in")
 
 ament_package()
 

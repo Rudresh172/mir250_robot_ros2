@@ -38,14 +38,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://mir_description/meshes/visual/caster_wheel_base.stl" />
+          <mesh filename="package://mir_description/meshes/visual/caster_wheel_base.stl" />
         </geometry>
         <xacro:insert_block name="material_silver" />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://mir_description/meshes/collision/caster_wheel_base.stl" />
+          <mesh filename="package://mir_description/meshes/collision/caster_wheel_base.stl" />
         </geometry>
       </collision>
     </link>
@@ -61,15 +61,8 @@
       <axis xyz="0 1 0" />
     </joint>
 
-<<<<<<< HEAD
-    <gazebo>
-      <!-- <plugin name="${locationprefix}_caster_wheel_joint_states" filename="libgazebo_ros_joint_state_publisher.so"> -->
-      <plugin name="${locationprefix}_caster_wheel_joint_states" filename="libignition-gazebo-joint-state-publisher.so"> <!-- Doesn't exist-->
-
-=======
     <!-- <gazebo>
       <plugin name="${locationprefix}_caster_wheel_joint_states" filename="libgazebo_ros_joint_state_publisher.so">
->>>>>>> cc6594dd9c4011d677f497c240b0c0fbea744c64
         <ros>
           <namespace>${ns}</namespace>
         </ros>
@@ -85,7 +78,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://mir_description/meshes/visual/wheel.stl" />
+          <mesh filename="package://mir_description/meshes/visual/wheel.stl" />
         </geometry>
         <xacro:insert_block name="material_dark_grey" />
       </visual>
