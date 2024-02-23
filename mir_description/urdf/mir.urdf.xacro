@@ -28,7 +28,7 @@
     left_wheel_joint="${prefix}left_wheel_joint"
     right_wheel_joint="${prefix}right_wheel_joint"/>  -->
 
-  <ros2_control name="GazeboSystem" type="system">
+  <!-- <ros2_control name="GazeboSystem" type="system">
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>
@@ -48,6 +48,28 @@
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
+<<<<<<< HEAD
+  </ros2_control> -->
+
+
+  <ros2_control name="IgnitionSystem" type="system">
+    <hardware>
+      <plugin>ign_ros2_control/IgnitionSystem</plugin>
+    </hardware>
+    <joint name="left_wheel_joint">
+      <command_interface name="velocity">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_wheel_joint">
+      <command_interface name="velocity">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+      </command_interface>
+=======
     <joint name="fl_caster_rotation_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
@@ -77,17 +99,23 @@
       <state_interface name="velocity"/>
     </joint>
     <joint name="br_caster_wheel_joint">
+>>>>>>> cc6594dd9c4011d677f497c240b0c0fbea744c64
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
   </ros2_control>
 
-  <gazebo>
-    <!-- Joint state publisher -->
+  <!-- <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
       <parameters>$(find mir_description)/config/diffdrive_controller.yaml</parameters>
     </plugin>
-  </gazebo>
+  </gazebo> -->
 
+  <gazebo>
+    <!-- Joint state publisher -->
+    <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <parameters>$(find mir_description)/config/diffdrive_controller.yaml</parameters>
+    </plugin>
+  </gazebo>
 
 </robot>
