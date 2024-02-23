@@ -13,7 +13,7 @@
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="${pi} 0 0" />
         <geometry>
-          <mesh filename="file://mir_description/meshes/visual/sick_lms-100.stl" />
+          <mesh filename="package://mir_description/meshes/visual/sick_lms-100.stl" />
         </geometry>
         <!-- <xacro:insert_block name="material_yellow" /> -->
         <xacro:insert_block name="material_black" />
@@ -21,7 +21,7 @@
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="${pi} 0 0" />
         <geometry>
-          <mesh filename="file://mir_description/meshes/visual/sick_lms-100.stl" />
+          <mesh filename="package://mir_description/meshes/visual/sick_lms-100.stl" />
         </geometry>
       </collision>
       <xacro:box_inertial x="${laser_x}" y="${laser_y}" z="${laser_z}" mass="${laser_mass}">
@@ -58,10 +58,7 @@
             <stddev>0.01</stddev>
           </noise>
         </ray>
-        <!-- <plugin name="gazebo_ros_${link}_controller" filename="libgazebo_ros_ray_sensor.so">     -->
-        <plugin name="gazebo_ros_${link}_controller" filename="libignition-gazebo-sensor-system.so"> 
-        <!-- Doesn't exist-->
-
+        <plugin name="gazebo_ros_${link}_controller" filename="libgazebo_ros_ray_sensor.so">    
           <ros>
             <remapping>~/out:=${prefix}${topic}</remapping>
           </ros>

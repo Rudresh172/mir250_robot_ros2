@@ -72,9 +72,7 @@
             </z>
           </linear_acceleration>
         </imu>
-        <!-- <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin"> -->
-        <plugin filename="libignition-gazebo-imu-system.so" name="imu_plugin">
-
+        <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
         <initial_orientation_as_reference>false</initial_orientation_as_reference>
           <ros>
             <namespace>${imu_topic}</namespace>
