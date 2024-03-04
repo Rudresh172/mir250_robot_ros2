@@ -13,7 +13,7 @@
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="${pi} 0 0" />
         <geometry>
-          <mesh filename="file://mir_description/meshes/visual/sick_lms-100.stl" />
+          <mesh filename="package://mir_description/meshes/visual/sick_lms-100.stl" />
         </geometry>
         <!-- <xacro:insert_block name="material_yellow" /> -->
         <xacro:insert_block name="material_black" />
@@ -21,7 +21,7 @@
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="${pi} 0 0" />
         <geometry>
-          <mesh filename="file://mir_description/meshes/visual/sick_lms-100.stl" />
+          <mesh filename="package://mir_description/meshes/visual/sick_lms-100.stl" />
         </geometry>
       </collision>
       <xacro:box_inertial x="${laser_x}" y="${laser_y}" z="${laser_z}" mass="${laser_mass}">
@@ -31,15 +31,15 @@
 
     <gazebo reference="${prefix}${link}">
       <!-- <material value="Gazebo/Yellow" /> -->
-      <material value="Gazebo/FlatBlack" />
-      <sensor type="ray" name="${prefix}${link}">
+      <!-- <material value="Gazebo/FlatBlack" /> -->
+      <!-- <sensor type="ray" name="${prefix}${link}">
         <visualize>false</visualize>
         <update_rate>12.5</update_rate>
         <ray>
           <scan>
             <horizontal>
               <samples>541</samples>
-              <resolution>1</resolution>  <!-- has to be 1; actual resolution will be computed from number of samples + min_angle/max_angle -->
+              <resolution>1</resolution>  
               <min_angle>-2.09438</min_angle>
               <max_angle>2.09438</max_angle>
             </horizontal>
@@ -51,16 +51,11 @@
           </range>
           <noise>
             <type>gaussian</type>
-              <!-- Noise parameters based on published spec for S300 achieving
-                 "+-29mm" accuracy at range < 3m (~0.01 of the range) at
-                 1 sigma. -->
             <mean>0.0</mean>
             <stddev>0.01</stddev>
           </noise>
         </ray>
-        <!-- <plugin name="gazebo_ros_${link}_controller" filename="libgazebo_ros_ray_sensor.so">     -->
-        <plugin name="gazebo_ros_${link}_controller" filename="libignition-gazebo-sensor-system.so"> 
-        <!-- Doesn't exist-->
+        <plugin name="gazebo_ros_${link}_controller" filename="libgazebo_ros_ray_sensor.so">    
 
           <ros>
             <remapping>~/out:=${prefix}${topic}</remapping>
@@ -68,7 +63,46 @@
           <output_type>sensor_msgs/LaserScan</output_type>
           <frame_name>${prefix}${link}</frame_name>
         </plugin>
+      </sensor> -->
+    <!-- </gazebo> -->
+
+      <sensor name="${prefix}${link}" type='gpu_lidar'>"
+        <pose relative_to="${prefix}${link}">0 0 0 0 0 0</pose>
+        <topic>${prefix}${topic}</topic>
+        <update_rate>12.5</update_rate>
+        <ray>
+            <scan>
+                <horizontal>
+                    <samples>541</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-2.09438</min_angle>
+                    <max_angle>2.09438</max_angle>
+                </horizontal>
+                <!-- <vertical>
+                    <samples>1</samples>
+                    <resolution>0.01</resolution>
+                    <min_angle>0</min_angle>
+                    <max_angle>0</max_angle>
+                </vertical> -->
+            </scan>
+            <range>
+                <min>0.05</min>
+                <max>29.0</max>
+                <resolution>0.01</resolution>
+            </range>
+        </ray>
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+        <gz_frame_id>${prefix}${link}</gz_frame_id>
       </sensor>
     </gazebo>
+
+    <!-- <gazebo>
+      <plugin filename="libignition-gazebo-sensors-system.so" name="ignition::gazebo::systems::Sensors">
+          <render_engine>ogre</render_engine>
+      </plugin>
+    </gazebo> -->
+    <!-- </link> -->
+    
   </xacro:macro>
 </robot>

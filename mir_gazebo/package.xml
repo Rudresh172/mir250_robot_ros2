@@ -37,5 +37,6 @@
   <export>
     <build_type>ament_cmake</build_type>
     <gazebo_ros gazebo_model_path="${prefix}/worlds/include"/>
+    <gazebo_ros gazebo_model_path="/home/rudresh/Downloads/mir_250_ros2_ign/src/mir_250_ros2/mir_gazebo/worlds"/>
   </export>
 </package>

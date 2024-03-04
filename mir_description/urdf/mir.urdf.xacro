@@ -48,7 +48,6 @@
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
-<<<<<<< HEAD
   </ros2_control> -->
 
 
@@ -69,7 +68,9 @@
         <param name="min">-1</param>
         <param name="max">1</param>
       </command_interface>
-=======
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
     <joint name="fl_caster_rotation_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
@@ -99,7 +100,6 @@
       <state_interface name="velocity"/>
     </joint>
     <joint name="br_caster_wheel_joint">
->>>>>>> cc6594dd9c4011d677f497c240b0c0fbea744c64
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>

@@ -93,17 +93,36 @@ def generate_launch_description():
     )
 
     # IGNITION GAZEBO PART ##
+
+    bridge_params = os.path.join(
+        get_package_share_directory('mir_gazebo'),
+        'params',
+        'mir_bridge.yaml'
+    )
+
+
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments= ['/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock'],
+        arguments=[
+            '--ros-args',
+            '-p',
+            f'config_file:={bridge_params}',
+        ],
+        output='screen',
     )
 
+    world = os.path.join(
+        get_package_share_directory('mir_gazebo'),
+        'worlds',
+        'empty_plugin.sdf'
+    )
+    
     launch_gazebo_world_ign = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')
         ]),
-        launch_arguments=[('gz_args', ['-r -v 4 ','empty.sdf'])]
+        launch_arguments=[('gz_args', ['-r -v 4 ',world])]
     )
     ## -- ##
 
@@ -191,11 +210,18 @@ def generate_launch_description():
 
     # IGNITION GAZEBO PART ##
 
+    sdf_path = os.path.join(
+        get_package_share_directory('mir_description'),
+        'urdf',
+        'mir.sdf'
+    )
+
     spawn_robot_ign = Node(
     package='ros_gz_sim',
     executable='create',
     output='screen',
-    arguments=['-topic', 'robot_description',
+    arguments=[#'-topic', 'robot_description',
+                '-file', sdf_path,
                 '-name', LaunchConfiguration('robot_name'),
                 '-allow_renaming', 'true'],   
     # namespace=LaunchConfiguration('namespace')    
@@ -282,6 +308,7 @@ def generate_launch_description():
     ld.add_action(diff_drive_spawner)
     #ld.add_action(launch_gazebo_world)
     ld.add_action(launch_gazebo_world_ign)
+    ld.add_action(bridge)
     ld.add_action(launch_mir_description)
     #ld.add_action(spawn_robot)
     ld.add_action(spawn_robot_ign)

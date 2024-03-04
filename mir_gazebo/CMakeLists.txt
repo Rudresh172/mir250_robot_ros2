@@ -23,7 +23,7 @@ find_package(gazebo_ros_pkgs REQUIRED)
 find_package(ira_laser_tools REQUIRED)
 
 install(DIRECTORY
-  launch worlds maps rviz
+  launch worlds maps rviz params
   DESTINATION share/${PROJECT_NAME}
 )
 
