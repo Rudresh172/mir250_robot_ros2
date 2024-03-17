@@ -1,6 +1,10 @@
 # mir_250_ros2
 This is a ROS2 package for MiR 250 with ros2_control, Gazebo and Ignition Gazebo simulation.
 
+![alt text](gazebo.png)
+![alt text](navigation.png)
+
+
 # Installation
 
 ## Preliminaries
@@ -60,3 +64,6 @@ ros2 launch mir_navigation amcl.py use_sim_time:=true map:=$(ros2 pkg prefix mir
 ### navigation
 ros2 launch mir_navigation navigation.py use_sim_time:=true
 ```
+
+## Acknowledgement
+The 3d files for MiR 250 are from [DFKI](https://github.com/DFKI-NI/mir_robot).
